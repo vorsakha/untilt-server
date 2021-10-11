@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { hash } from "bcrypt";
+import { hash, compare } from "bcrypt";
 const route = express.Router();
 const auth = require("../middleware/auth");
 const userModel = require("../models/User");
@@ -66,7 +66,8 @@ route.post("/", async (req: Request, res: Response) => {
     }
 
     // If user found check if password matches
-    const isMatch = password === user.password;
+    // const isMatch = password === user.password;
+    const isMatch = await compare(password, user.password);
     //const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res
