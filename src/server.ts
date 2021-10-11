@@ -5,16 +5,6 @@ import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 const app = express();
 
-declare global {
-  namespace Express {
-    interface Request {
-      user: {
-        id: string;
-      };
-    }
-  }
-}
-
 const PORT = process.env.PORT || 5000;
 const DB_URL = process.env.DB_URL;
 
@@ -29,6 +19,10 @@ mongoose.connect(DB_URL as string, (error: any) => {
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+
+app.use("/auth", require("./routes/auth"));
+app.use("/bug", require("./routes/bugs"));
+app.use("/user", require("./routes/user"));
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
