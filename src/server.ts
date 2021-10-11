@@ -5,6 +5,16 @@ import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 const app = express();
 
+declare global {
+  namespace Express {
+    interface Request {
+      user: {
+        id: string;
+      };
+    }
+  }
+}
+
 const PORT = process.env.PORT || 5000;
 const DB_URL = process.env.DB_URL;
 
