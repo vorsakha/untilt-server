@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 const route = express.Router();
-const userModel = require("../../Model/userModel");
-const auth = require("../Middleware/auth");
+const userModel = require("../models/User");
+const auth = require("../middleware/auth");
 
 // Get user by token
 route.get("/", auth, async (req: Request, res: Response) => {

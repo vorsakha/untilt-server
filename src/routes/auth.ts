@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
-const auth = require("../Middleware/auth");
 import jwt from "jsonwebtoken";
 import { hash } from "bcrypt";
 const route = express.Router();
-const userModel = require("../../Model/userModel");
+const auth = require("../middleware/auth");
+const userModel = require("../models/User");
 
 // Create user
 route.post("/user", async (req: Request, res: Response) => {
@@ -19,13 +19,13 @@ route.post("/user", async (req: Request, res: Response) => {
       const newUser = new userModel({
         name: req.body.name,
         password: hash,
-        role: req.body.role && req.body.role
-      })
+        role: req.body.role && req.body.role,
+      });
 
-      const user = await newUser.save()
+      const user = await newUser.save();
 
-      res.send(user)
-    })
+      res.send(user);
+    });
   } catch (error) {
     if (error) return res.status(400).send(error);
   }

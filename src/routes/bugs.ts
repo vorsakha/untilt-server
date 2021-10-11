@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 const route = express.Router();
-const bugModel = require("../../Model/bugModel");
-const auth = require("../Middleware/auth");
+const bugModel = require("../models/Bug");
+const auth = require("../middleware/auth");
 
 // Create or edit bug
 route.post("/", auth, async (req: Request, res: Response) => {
@@ -62,11 +62,11 @@ route.delete("/:id", auth, async (req: Request, res: Response) => {
     const bugs = await bugModel.find().sort({ priority: 1 });
 
     res.json(bugs);
-  } catch (err) {
-    console.error(err.message);
-    if (err.kind === "ObjectId") {
-      return res.status(404).json({ msg: "Bug not found" });
-    }
+  } catch (error) {
+    console.error(error);
+    // if (error.kind === "ObjectId") {
+    //   return res.status(404).json({ msg: "Bug not found" });
+    // }
     res.status(500).send("Server Error");
   }
 });
@@ -78,7 +78,7 @@ route.get("/", auth, async (req: Request, res: Response) => {
 
     res.json(bugs);
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
     res.status(500).send("Server Error");
   }
 });
@@ -96,7 +96,7 @@ route.post("/name", auth, async (req: Request, res: Response) => {
 
     res.json(true);
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
     res.status(500).send("Server Error");
   }
 });
