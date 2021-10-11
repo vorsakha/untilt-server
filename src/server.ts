@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/auth", require("./routes/auth"));
-app.use("/bug", require("./routes/bugs"));
+app.use("/bugs", require("./routes/bugs"));
 app.use("/user", require("./routes/user"));
 
 app.listen(PORT, () => {
